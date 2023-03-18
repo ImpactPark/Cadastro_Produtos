@@ -1,0 +1,32 @@
+Grupo de ADS do 5° Semestre formado por:
+
+RA:2100751 - Ana Paula das Chagas
+RA:2100782 - Angelo Kanasiro Kontogiorgos
+RA:2100629 - Anderson Sousa da Cruz
+RA:2100615 - Otavio Augusto Silva Gonçalves
+
+URL do Board:
+https://github.com/users/Inventarioplus/projects/2/views/1
+
+URL do Repositório
+https://github.com/Inventarioplus/Cadastro_Produtos
+
+Descrição do Projeto
+Projeto: Cadastro de Produtos para inventário - Inventário+ 
+
+Este projeto tem como objetivo o cadastro e geração de relatório para controle de estoque para empresas, tanto do ramo alimentício como eletrônico.
+
+Neste sistema, o usuário deverá ser capaz de executar as seguintes ações:
+- Realizar o login através de uma tela inicial
+- Se cadastrar caso ainda não tenha acesso ao sistema
+- Cadastrar produtos no sistema
+- Realizar alterações no estoque quando necessário
+- Gerar um relátorio com o inventário dos produtos
+
+O Sistema deverá:
+- Armazenar em um banco de dados, os dados dos usuários cadastrados
+- Cadastrar e armazenar no banco de dados, produtos do tipo (alimentício, Eletrônico ou Informática)
+- Listar os itens cadastrados no inventário
+- Ser capaz de alter os produtos, bem como suas quantidades e preços.
+- Gerar um relatório em PDF com o inventário.
+
