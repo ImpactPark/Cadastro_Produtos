@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(189, 243, 255);</string>
+   <string notr="true">background-color: rgb(87, 205, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
@@ -99,7 +99,11 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_2">
@@ -112,7 +116,11 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_3">
@@ -125,7 +133,11 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="radioButton">
@@ -223,7 +235,12 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(217, 217, 217);</string>
+     <string notr="true">background-color: rgb(211, 255, 90);
+border-color: rgb(0, 0, 0);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Gravar</string>
@@ -246,7 +263,12 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(217, 217, 217);</string>
+     <string notr="true">background-color: rgb(211, 255, 90);
+border-color: rgb(0, 0, 0);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string>Sair</string>
