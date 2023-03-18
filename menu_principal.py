@@ -7,29 +7,36 @@ import sys
 
 # Função principal que será disparada pelo acionamento do botão "Gravar"
 def funcao_principal():
-    linha1 = formulario.lineEdit.text()
-    linha2 = formulario.lineEdit_2.text()
-    linha3 = formulario.lineEdit_3.text()
+    linha1 = menu_principal.lineEdit.text()
+    linha2 = menu_principal.lineEdit_2.text()
+    linha3 = menu_principal.lineEdit_3.text()
     print("Codigo:", linha1)
     print("Descrição:", linha2)
     print("Preço:", linha3)
 
 # Função criada para encerrar o programa disparada pelo acionamento do botão "Sair"
-def encerrar_programa():
-    sys.exit()
+def sair():
+    tela_login.show()
+    menu_principal.close()
+    
 
 # Objeto App utilizando a classe QtWidgets para criar a aplicação
 app=QtWidgets.QApplication([])
 
-# Criação do objeto formulario que utiliza o uic para carregar/importar o arquivo "formulario.ui" 
-formulario=uic.loadUi("formulario.ui")
+# Criação do objeto formulario que utiliza o uic para carregar/importar o arquivo "menu_principal.ui" 
+menu_principal=uic.loadUi("menu_principal.ui")
+
+# Criação do objeto formulario que utiliza o uic para carregar/importar o arquivo "tela_login.ui" 
+tela_login=uic.loadUi("tela_login.ui")
 
 # Objeto de ação do botão que chama a função principal do sistema
-formulario.pushButton.clicked.connect(funcao_principal)
+menu_principal.pushButton.clicked.connect(funcao_principal)
+
+
 
 # Objeto de ação do botão que chama a função "encerrar_programa"
-formulario.pushButton_3.clicked.connect(encerrar_programa)
+menu_principal.pushButton_3.clicked.connect(sair)
 
 
-formulario.show()
+menu_principal.show()
 app.exec()
