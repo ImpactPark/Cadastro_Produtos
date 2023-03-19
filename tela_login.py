@@ -23,7 +23,8 @@ def abre_tela_cadastro():
 
 
 
-# def cadastrar_usuario():
+#def cadastrar_usuario():
+
 
 
 
@@ -37,6 +38,7 @@ tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 menu_principal.pushButton_3.clicked.connect(sair)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
+#tela_cadastro_usuario.pushButton_2.clicked.connect(cadastrar_usuario)
 
 
 tela_login.show()
