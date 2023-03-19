@@ -16,7 +16,7 @@ def funcao_principal():
 
 # Função criada para encerrar o programa disparada pelo acionamento do botão "Sair"
 def sair():
-    tela_login.show()
+    #tela_login.show()
     menu_principal.close()
     
 

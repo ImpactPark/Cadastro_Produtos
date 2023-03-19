@@ -11,7 +11,7 @@ def chama_menu_principal():
         tela_login.label_5.setText("Dados de login incorretos!")
 
 
-def logout():
+def sair():
     menu_principal.close()
     tela_login.show()
 
@@ -20,7 +20,7 @@ app=QtWidgets.QApplication([])
 tela_login = uic.loadUi("tela_login.ui")
 menu_principal = uic.loadUi("menu_principal.ui")
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
-menu_principal.pushButton_3.clicked.connect(logout)
+menu_principal.pushButton_3.clicked.connect(sair)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
 
 
