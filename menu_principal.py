@@ -2,7 +2,6 @@
 # Import do modulo QtWidgetspara montar os elementos na tela
 # Import do modulo sys para execitar o exit 
 from PyQt5 import uic,QtWidgets
-import sys
 
 
 # Função principal que será disparada pelo acionamento do botão "Gravar"
@@ -16,9 +15,8 @@ def funcao_principal():
 
 # Função criada para encerrar o programa disparada pelo acionamento do botão "Sair"
 def sair():
-    #tela_login.show()
     menu_principal.close()
-    
+    tela_login.show()
 
 # Objeto App utilizando a classe QtWidgets para criar a aplicação
 app=QtWidgets.QApplication([])
