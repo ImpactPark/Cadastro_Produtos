@@ -1,6 +1,5 @@
 # Import do modulo uic para leitura do arquivo formulario.ui
 # Import do modulo QtWidgetspara montar os elementos na tela
-# Import do modulo sys para execitar o exit 
 from PyQt5 import uic,QtWidgets
 
 

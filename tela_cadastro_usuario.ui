@@ -196,6 +196,7 @@ text-align: center;</string>
     </property>
     <property name="font">
      <font>
+      <family>Microsoft YaHei UI</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -227,6 +228,24 @@ border-color: rgb(0, 0, 0);</string>
      <pixmap>../../../../Downloads/Working-rafiki_resized.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>370</y>
+      <width>281</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 24, 16);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_6</zorder>
    <zorder>label_7</zorder>
@@ -235,6 +254,7 @@ border-color: rgb(0, 0, 0);</string>
    <zorder>lineEdit_3</zorder>
    <zorder>lineEdit_4</zorder>
    <zorder>pushButton_2</zorder>
+   <zorder>label_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

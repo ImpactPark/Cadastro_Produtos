@@ -53,8 +53,14 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
+    <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
     <property name="placeholderText">
      <string>Digite seu nome</string>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -68,7 +74,8 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
     </property>
     <property name="font">
      <font>
-      <pointsize>13</pointsize>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="text">
@@ -86,6 +93,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
     </property>
     <property name="font">
      <font>
+      <family>Microsoft YaHei UI</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -141,6 +149,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
     </property>
     <property name="font">
      <font>
+      <family>Microsoft YaHei UI</family>
       <pointsize>12</pointsize>
      </font>
     </property>
