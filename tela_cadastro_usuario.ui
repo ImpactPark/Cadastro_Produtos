@@ -227,7 +227,7 @@ border-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>350</x>
       <y>300</y>
       <width>321</width>
       <height>291</height>
