@@ -39,7 +39,7 @@
      <string notr="true">background-color: rgb(255, 255, 255);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
@@ -101,7 +101,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <string notr="true">background-color: rgb(211, 255, 90);
 border-color: rgb(0, 0, 0);
 border-radius: 15px;
-border-style: outset;
+border-stule: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);</string>
     </property>
@@ -120,11 +120,13 @@ border-color: rgb(0, 0, 0);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
+
 
 </string>
     </property>
@@ -224,11 +226,17 @@ border-color: rgb(0, 0, 0);</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>13</pointsize>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 24, 16);</string>
+     <string notr="true">color: rgb(255, 24, 16);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
+</string>
     </property>
     <property name="text">
      <string/>

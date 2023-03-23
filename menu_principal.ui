@@ -85,12 +85,15 @@
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -110,12 +113,15 @@ text-align: center;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -135,12 +141,15 @@ text-align: center;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
