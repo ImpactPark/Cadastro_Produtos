@@ -72,12 +72,15 @@
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -103,12 +106,15 @@ text-align: center;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -134,12 +140,15 @@ text-align: center;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
@@ -168,12 +177,15 @@ text-align: center;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);
 font: 12pt &quot;Microsoft YaHei UI&quot;;
-text-align: center;</string>
+
+
+</string>
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
@@ -232,9 +244,9 @@ border-color: rgb(0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>370</y>
+      <y>380</y>
       <width>281</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">

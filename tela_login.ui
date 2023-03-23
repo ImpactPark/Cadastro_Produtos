@@ -101,7 +101,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <string notr="true">background-color: rgb(211, 255, 90);
 border-color: rgb(0, 0, 0);
 border-radius: 15px;
-border-stule: outset;
+border-style: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);</string>
     </property>

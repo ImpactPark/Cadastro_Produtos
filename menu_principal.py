@@ -12,12 +12,13 @@ def funcao_principal():
     print("Descrição:", linha2)
     print("Preço:", linha3)
 
-# Função criada para encerrar o programa disparada pelo acionamento do botão "Sair"
+# Função criada para encerrar o menu principal disparada pelo 
+# acionamento do botão "Sair" e voltar para a tela de login 
 def sair():
     menu_principal.close()
     tela_login.show()
 
-# Objeto App utilizando a classe QtWidgets para criar a aplicação
+# Objeto app que utiliza a classe QtWidgets para criar a aplicação
 app=QtWidgets.QApplication([])
 
 # Criação do objeto formulario que utiliza o uic para carregar/importar o arquivo "menu_principal.ui" 
@@ -29,9 +30,7 @@ tela_login=uic.loadUi("tela_login.ui")
 # Objeto de ação do botão que chama a função principal do sistema
 menu_principal.pushButton.clicked.connect(funcao_principal)
 
-
-
-# Objeto de ação do botão que chama a função "encerrar_programa"
+# Objeto de ação do botão que chama a função "sair" retornando para a tela de login
 menu_principal.pushButton_3.clicked.connect(sair)
 
 

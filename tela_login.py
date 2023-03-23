@@ -1,6 +1,7 @@
-# Import do modulo uic para leitura do arquivo formulario.ui
-# Import do modulo QtWidgetspara montar os elementos na tela
+# Import do modulo uic para leitura do arquivo formulario.ui e do modulo QtWidgetspara montar os elementos na tela
 from PyQt5 import uic, QtWidgets
+
+# Import do banco sqlite3
 import sqlite3
 
 
@@ -14,27 +15,26 @@ def chama_menu_principal():
     else:
         tela_login.label_5.setText("Dados de login incorretos!")
 
-
+# Função criada para encerrar o menu principal disparada pelo 
+# acionamento do botão "Sair" e voltar para a tela de login 
 def sair():
     menu_principal.close()
     tela_login.show()
 
-
+# Função criada para abrir a tela de cadastro quando acionado o botão "cadastrar"
 def abre_tela_cadastro():
     tela_cadastro_usuario.show()
 
 
-
+# Função responsável por coletar os dados digitados no formuário
 def cadastrar_usuario():
     nome = tela_cadastro_usuario.lineEdit.text()
     login = tela_cadastro_usuario.lineEdit_2.text()
     senha = tela_cadastro_usuario.lineEdit_3.text()
     confirma_senha = tela_cadastro_usuario.lineEdit_4.text()
 
-
 # If criado para verificação da senha de cadastro caso de algum 
 # problema foi criado um TRY e um EXCEPT para captura destes erros
-
     if (senha == confirma_senha):
         try:
             banco = sqlite3.connect('banco_cadastro.db')
