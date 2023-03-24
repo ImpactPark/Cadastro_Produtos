@@ -101,7 +101,6 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <string notr="true">background-color: rgb(211, 255, 90);
 border-color: rgb(0, 0, 0);
 border-radius: 15px;
-border-stule: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);</string>
     </property>
@@ -159,7 +158,6 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <string notr="true">background-color: rgb(211, 255, 90);
 border-color: rgb(0, 0, 0);
 border-radius: 15px;
-border-stule: outset;
 border-width: 2px;
 border-color: rgb(0, 0, 0);</string>
     </property>
@@ -218,16 +216,16 @@ border-color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>420</x>
       <y>240</y>
-      <width>221</width>
+      <width>281</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Microsoft YaHei UI</family>
-      <pointsize>12</pointsize>
+      <pointsize>14</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -235,11 +233,14 @@ border-color: rgb(0, 0, 0);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 24, 16);
-font: 12pt &quot;Microsoft YaHei UI&quot;;
+font: 14pt &quot;Microsoft YaHei UI&quot;;
 </string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">

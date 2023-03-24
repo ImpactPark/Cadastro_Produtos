@@ -9,32 +9,36 @@ def chama_menu_principal():
     tela_login.label_5.setText("")
     nome_usuario = tela_login.lineEdit.text()
     senha = tela_login.lineEdit_2.text()
-    banco = sqlite3.connect('banco_cadastro.db') #Função do sqlite para criação do banco através do connect caso o banco ja exista esta linha não será executada
+    banco = sqlite3.connect('banco_cadastro.db') #Abertura de coneão com o banco de dados
     cursor = banco.cursor() # Cursor usado para manipulação do banco e criação das querys
     try:
-        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario))
-        senha_bd = cursor.fetchall()
-        print(senha_bd[0][0])
+        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario)) # Query para pegar a senha na mesma linha que o usuário digitou 
+        senha_bd = cursor.fetchall() # Senha recuparada do banco
+        if senha == senha_bd[0][0]: #[0][0] primeira posição da lista e primeira posição da tupla para que não traga valores a mais 
+            tela_login.close()
+            menu_principal.show()
+        else:
+            tela_login.label_5.setText("Dados de login incorretos!")
         banco.close()
     except:
-        print("Erro ao validar o login")
-
-    if senha == senha_bd[0][0]:
-        tela_login.close()
-        menu_principal.show()
-    else:
-        tela_login.label_5.setText("Dados de login incorretos!")
+        tela_login.label_5.setText("Erro ao validar o login")
+    
 
 # Função criada para encerrar o menu principal disparada pelo 
 # acionamento do botão "Sair" e voltar para a tela de login 
 def sair():
     menu_principal.close()
-    tela_cadastro_usuario.close()
     tela_login.show()
 
 # Função criada para abrir a tela de cadastro quando acionado o botão "cadastrar"
 def abre_tela_cadastro():
+    tela_login.close()
     tela_cadastro_usuario.show()
+
+def fecha_tela_cadastro():
+    tela_cadastro_usuario.close()
+    tela_login.show()
+
 
 
 # Função responsável por coletar os dados digitados no formuário
@@ -74,8 +78,7 @@ menu_principal.pushButton_3.clicked.connect(sair)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password) # Propriedade setEchoMode utilizada para esconder as senhas digitadas no formulário
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_cadastro_usuario.pushButton_2.clicked.connect(cadastrar_usuario)
-tela_cadastro_usuario.pushButton_3.clicked.connect(sair) 
-
+tela_cadastro_usuario.pushButton_3.clicked.connect(fecha_tela_cadastro) 
 
 
 tela_login.show()
