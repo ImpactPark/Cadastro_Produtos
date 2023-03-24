@@ -180,7 +180,7 @@ border-color: rgb(0, 0, 0);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>.\img\icon_01.png</pixmap>
+     <pixmap>img/icon_01.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -196,7 +196,7 @@ border-color: rgb(0, 0, 0);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>.\img\icon_02.png</pixmap>
+     <pixmap>img/icon_02.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -212,7 +212,7 @@ border-color: rgb(0, 0, 0);</string>
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>.\img\Product hunt-cuate_resized.png</pixmap>
+     <pixmap>img/Product hunt-cuate_resized.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">

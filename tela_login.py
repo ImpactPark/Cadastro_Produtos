@@ -4,12 +4,22 @@ from PyQt5 import uic, QtWidgets
 # Import do banco sqlite3
 import sqlite3
 
-
+# Função para validar se o usuário e senha estão corretos e chamar o menu primcipal
 def chama_menu_principal():
     tela_login.label_5.setText("")
     nome_usuario = tela_login.lineEdit.text()
     senha = tela_login.lineEdit_2.text()
-    if nome_usuario == "admin" and senha == "admin":
+    banco = sqlite3.connect('banco_cadastro.db') #Função do sqlite para criação do banco através do connect caso o banco ja exista esta linha não será executada
+    cursor = banco.cursor() # Cursor usado para manipulação do banco e criação das querys
+    try:
+        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario))
+        senha_bd = cursor.fetchall()
+        print(senha_bd[0][0])
+        banco.close()
+    except:
+        print("Erro ao validar o login")
+
+    if senha == senha_bd[0][0]:
         tela_login.close()
         menu_principal.show()
     else:
@@ -19,6 +29,7 @@ def chama_menu_principal():
 # acionamento do botão "Sair" e voltar para a tela de login 
 def sair():
     menu_principal.close()
+    tela_cadastro_usuario.close()
     tela_login.show()
 
 # Função criada para abrir a tela de cadastro quando acionado o botão "cadastrar"
@@ -37,7 +48,7 @@ def cadastrar_usuario():
 # problema foi criado um TRY e um EXCEPT para captura destes erros
     if (senha == confirma_senha):
         try:
-            banco = sqlite3.connect('banco_cadastro.db') #Função do sqlite para criação do banco através do connect caso o banco ja exista esta linha não serpa executada
+            banco = sqlite3.connect('banco_cadastro.db') #Função do sqlite para criação do banco através do connect caso o banco ja exista esta linha não será executada
             cursor = banco.cursor() # Cursor usado para manipulação do banco e criação das querys
             cursor.execute("CREATE TABLE IF NOT EXISTS cadastro_usuario(nome text,login text,senha text)") # Criação da tabela seguido das respectivas colunas para armazenar os dados dos usuários cadastrados 
             cursor.execute("INSERT INTO cadastro_usuario VALUES ('"+nome+"', '"+login+"', '"+senha+"')") # Será inserido no banco o que foi digitado nas variáveis criadas na função cadastrar_usuario
@@ -63,6 +74,8 @@ menu_principal.pushButton_3.clicked.connect(sair)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password) # Propriedade setEchoMode utilizada para esconder as senhas digitadas no formulário
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_cadastro_usuario.pushButton_2.clicked.connect(cadastrar_usuario)
+tela_cadastro_usuario.pushButton_3.clicked.connect(sair) 
+
 
 
 tela_login.show()

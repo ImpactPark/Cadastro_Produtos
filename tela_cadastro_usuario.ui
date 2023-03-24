@@ -258,6 +258,33 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>500</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(211, 255, 90);
+border-color: rgb(0, 0, 0);
+border-radius: 15px;
+border-stule: outset;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Login</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_6</zorder>
    <zorder>label_7</zorder>
@@ -267,6 +294,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
    <zorder>lineEdit_4</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>label_2</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
