@@ -29,4 +29,3 @@ O Sistema deverá:
 - Listar os itens cadastrados no inventário
 - Ser capaz de alter os produtos, bem como suas quantidades e preços.
 - Gerar um relatório em PDF com o inventário.
-
