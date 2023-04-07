@@ -3,6 +3,8 @@
 from PyQt5 import uic,QtWidgets
 # Import do banco sqlite3
 import sqlite3
+# Import do módulo re para trabalhar com expressões regulares
+import re
 
 # Cria a conexão com o banco de dados
 banco = sqlite3.connect('banco_cadastro.db')
@@ -27,12 +29,48 @@ def funcao_principal():
     linha2 = menu_principal.lineEdit_2.text()
     linha3 = menu_principal.lineEdit_3.text()
 
-    if menu_principal.radioButton.isChecked(): # If para verificar se o radioButton foi clicado, retorna true ou false
-        categoria = "Categoria Informática"
-    elif menu_principal.radioButton_2.isChecked(): 
-        categoria = "Categoria Alimentos"
+    # Validação das entradas do usuário
+    if not (re.fullmatch(r'\d+', linha1) and re.fullmatch(r'[A-Za-z0-9\s]+', linha2) and re.fullmatch(r'\d+(\.\d{1,2})?', linha3)):
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setText("Dados incorretos para cadastro")
+        msg.setWindowTitle("Erro no cadastro")
+        msg.exec_()
+        return
+
+    # Verifica se o código já existe no banco de dados
+    cursor.execute("SELECT * FROM produtos WHERE codigo = ?", (linha1,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setText("Código já existente")
+        msg.setWindowTitle("Erro no cadastro")
+        msg.exec_()
+        return
+
+    if menu_principal.radioButton.isChecked():  # If para verificar se o radioButton foi clicado, retorna true ou false
+        categoria = "Informática"
+    elif menu_principal.radioButton_2.isChecked():
+        categoria = "Alimentos"
+    elif menu_principal.radioButton_3.isChecked():
+        categoria = "Eletrônicos"
     else:
-        categoria = "Categoria Eletrônicos"
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setText("Selecione a categoria")
+        msg.setWindowTitle("Erro no cadastro")
+        msg.exec_()
+        return
+    
+#    # If para verificar se o radioButton foi clicado, retorna true ou false
+#    if menu_principal.radioButton.isChecked(): 
+#        categoria = "Informática"
+#    elif menu_principal.radioButton_2.isChecked(): 
+#        categoria = "Alimentos"
+#    else:
+#        categoria = "Eletrônicos"
 
     # Insere os dados na tabela produtos
     cursor.execute('''
@@ -42,6 +80,13 @@ def funcao_principal():
 
     # Salva a transação no banco de dados
     banco.commit()
+
+    # Exibe mensagem de sucesso em um pop-up
+    msg = QtWidgets.QMessageBox()
+    msg.setIcon(QtWidgets.QMessageBox.Information)
+    msg.setText("Produto cadastrado com sucesso!")
+    msg.setWindowTitle("Cadastro de Produto")
+    msg.exec_()
 
     print("Dados inseridos com sucesso!")
     print("Codigo:", linha1)
