@@ -15,6 +15,8 @@ def chama_menu_principal():
         if senha == senha_bd[0][0]:
             tela_login.close()
             menu_principal.show()
+            tela_login.lineEdit.setText("")
+            tela_login.lineEdit_2.setText("")
         else:
             tela_login.label_5.setText("Dados de login incorretos!")
         banco.close()
@@ -66,6 +68,10 @@ def cadastrar_usuario():
         try:
             cursor.execute("INSERT INTO cadastro_usuario (nome, login, senha) VALUES (?, ?, ?)", (nome, login, senha))
             banco.commit()
+            tela_cadastro_usuario.lineEdit.setText("")
+            tela_cadastro_usuario.lineEdit_2.setText("")
+            tela_cadastro_usuario.lineEdit_3.setText("")
+            tela_cadastro_usuario.lineEdit_4.setText("")
             # Mostra pop-up de sucesso
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Information)
@@ -121,6 +127,9 @@ def funcao_principal():
         cursor.execute("INSERT INTO produtos (codigo, descricao, preco, categoria) VALUES (?,?,?,?)",
                        (linha1, linha2, linha3, categoria))
         banco.commit()
+        menu_principal.lineEdit.setText("")
+        menu_principal.lineEdit_2.setText("")
+        menu_principal.lineEdit_3.setText("")
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Information)
         msg.setText("Produto cadastrado com sucesso!")
