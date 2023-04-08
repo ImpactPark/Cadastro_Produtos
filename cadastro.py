@@ -144,9 +144,8 @@ def funcao_principal():
         print("Erro ao cadastrar produto: ", erro)
 
 def chama_lista_produtos():
-    lista_produtos = uic.loadUi("lista_produtos.ui")
-
-    
+    menu_principal.close()
+    lista_produtos.show()
 
 
 app = QtWidgets.QApplication([])
