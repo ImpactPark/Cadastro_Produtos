@@ -143,17 +143,24 @@ def funcao_principal():
         msg.exec_()
         print("Erro ao cadastrar produto: ", erro)
 
+def chama_lista():
+    lista_produtos = uic.loadUi("lista_produtos.ui")
+
+    
+
 
 app = QtWidgets.QApplication([])
 tela_login = uic.loadUi("tela_login.ui")
 menu_principal = uic.loadUi("menu_principal.ui")
 tela_cadastro_usuario = uic.loadUi("tela_cadastro_usuario.ui")
+lista_produtos = uic.loadUi("lista_produtos.ui")
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 menu_principal.pushButton_3.clicked.connect(sair)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_cadastro_usuario.pushButton_2.clicked.connect(cadastrar_usuario)
 tela_cadastro_usuario.pushButton_3.clicked.connect(fecha_tela_cadastro)
+lista_produtos.pushButton_2.clicked.connect(chama_lista)
 
 banco = sqlite3.connect('banco_cadastro.db')
 cursor = banco.cursor()

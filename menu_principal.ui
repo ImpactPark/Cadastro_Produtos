@@ -333,6 +333,34 @@ border-color: rgb(0, 0, 0);</string>
      <pixmap>img/Product_resized.png</pixmap>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>390</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(211, 255, 90);
+border-color: rgb(0, 0, 0);
+border-radius: 15px;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Listar</string>
+    </property>
+   </widget>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
    <zorder>label_3</zorder>
@@ -347,6 +375,7 @@ border-color: rgb(0, 0, 0);</string>
    <zorder>pushButton_3</zorder>
    <zorder>label_6</zorder>
    <zorder>label_4</zorder>
+   <zorder>pushButton_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
