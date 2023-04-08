@@ -147,6 +147,10 @@ def chama_lista_produtos():
     menu_principal.close()
     lista_produtos.show()
 
+    cursor = banco.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    dados_lidos=cursor.fetchall()
+    print(dados_lidos)
 
 app = QtWidgets.QApplication([])
 tela_login = uic.loadUi("tela_login.ui")
