@@ -83,3 +83,4 @@ tela_cadastro_usuario.pushButton_3.clicked.connect(fecha_tela_cadastro)
 
 tela_login.show()
 app.exec()
+
