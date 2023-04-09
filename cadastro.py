@@ -167,6 +167,16 @@ def chama_lista_produtos():
             else:
                 lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
+def excluir_dados():
+    linha = lista_produtos.tableWidget.currentRow()
+    lista_produtos.tableWidget.removeRow(linha)
+    cursor = banco.cursor()
+    cursor.execute("SELECT id FROM produtos")
+    dados_lidos = cursor.fetchall()
+    valor_id = dados_lidos[linha][0]
+    cursor.execute("DELETE FROM produtos WHERE id=" + str(valor_id))
+    banco.commit()
+
 
 def gerar_pdf():
     cursor = banco.cursor()
@@ -212,6 +222,7 @@ tela_cadastro_usuario = uic.loadUi("tela_cadastro_usuario.ui")
 lista_produtos = uic.loadUi("lista_produtos.ui")
 lista_produtos.pushButton_2.clicked.connect(gerar_pdf)
 lista_produtos.pushButton_3.clicked.connect(voltar)
+lista_produtos.pushButton_4.clicked.connect(excluir_dados)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
