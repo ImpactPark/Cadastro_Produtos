@@ -150,7 +150,14 @@ def chama_lista_produtos():
     cursor = banco.cursor()
     cursor.execute("SELECT * FROM produtos")
     dados_lidos=cursor.fetchall()
-    print(dados_lidos)
+    
+    lista_produtos.tableWidget.setRowCount(len(dados_lidos))
+    lista_produtos.tableWidget.setColumnCount(5)
+
+    for i in range(0, len(dados_lidos)):
+        for j in range(0,5):
+            lista_produtos.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+
 
 app = QtWidgets.QApplication([])
 tela_login = uic.loadUi("tela_login.ui")
