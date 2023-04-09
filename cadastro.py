@@ -1,6 +1,7 @@
 from PyQt5 import uic, QtWidgets
 import sqlite3
 import re
+from reportlab.pdfgen import canvas
 
 def chama_menu_principal():
     tela_login.label_5.setText("")
@@ -158,12 +159,20 @@ def chama_lista_produtos():
         for j in range(0,5):
             lista_produtos.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
+def gerar_pdf():
+    cursor = banco.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    dados_lidos=cursor.fetchall()
+    y=0
+    pdf = canvas.Canvas("Cadastro_Produtos.pdf")
+
 
 app = QtWidgets.QApplication([])
 tela_login = uic.loadUi("tela_login.ui")
 menu_principal = uic.loadUi("menu_principal.ui")
 tela_cadastro_usuario = uic.loadUi("tela_cadastro_usuario.ui")
 lista_produtos = uic.loadUi("lista_produtos.ui")
+lista_produtos.pushButton_2.clicked.connect(gerar_pdf)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
