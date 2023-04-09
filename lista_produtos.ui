@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>591</width>
+    <width>651</width>
     <height>639</height>
    </rect>
   </property>
@@ -41,7 +41,7 @@
      <rect>
       <x>10</x>
       <y>110</y>
-      <width>571</width>
+      <width>631</width>
       <height>351</height>
      </rect>
     </property>
@@ -157,13 +157,41 @@ border-color: rgb(0, 0, 0);</string>
      <string>PDF</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>480</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(211, 255, 90);
+border-color: rgb(0, 0, 0);
+border-radius: 15px;
+border-width: 2px;
+border-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Voltar</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>591</width>
+     <width>651</width>
      <height>21</height>
     </rect>
    </property>

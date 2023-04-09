@@ -29,6 +29,10 @@ def sair():
     menu_principal.close()
     tela_login.show()
 
+def voltar():
+    lista_produtos.close()
+    menu_principal.show()
+
 def abre_tela_cadastro():
     tela_login.close()
     tela_cadastro_usuario.show()
@@ -165,6 +169,27 @@ def gerar_pdf():
     dados_lidos=cursor.fetchall()
     y=0
     pdf = canvas.Canvas("Cadastro_Produtos.pdf")
+    pdf.setFont("Times-Bold", 25)
+    pdf.drawString(200,800, "Produtos Cadastrados:")
+    pdf.setFont("Times-Bold", 18)
+
+    pdf.drawString(10,750, "ID")
+    pdf.drawString(110,750, "CÓDIGO")
+    pdf.drawString(210,750, "PRODUTO")
+    pdf.drawString(310,750, "PREÇO")
+    pdf.drawString(410,750, "CATEGORIA")
+
+    for i in range(0, len(dados_lidos)):
+        y = y +50
+        pdf.drawString(10,750 - y, str(dados_lidos[i][0]))
+        pdf.drawString(110,750 - y, str(dados_lidos[i][1]))
+        pdf.drawString(210,750 - y, str(dados_lidos[i][2]))
+        pdf.drawString(310,750 - y, str(dados_lidos[i][3]))
+        pdf.drawString(410,750 - y, str(dados_lidos[i][4]))
+
+    pdf.save()
+    print("PDF Gerado com sucesso!")
+
 
 
 app = QtWidgets.QApplication([])
@@ -173,6 +198,7 @@ menu_principal = uic.loadUi("menu_principal.ui")
 tela_cadastro_usuario = uic.loadUi("tela_cadastro_usuario.ui")
 lista_produtos = uic.loadUi("lista_produtos.ui")
 lista_produtos.pushButton_2.clicked.connect(gerar_pdf)
+lista_produtos.pushButton_3.clicked.connect(voltar)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
