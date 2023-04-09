@@ -2,6 +2,7 @@ from PyQt5 import uic, QtWidgets
 import sqlite3
 import re
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import landscape
 
 def chama_menu_principal():
     tela_login.label_5.setText("")
@@ -154,41 +155,53 @@ def chama_lista_produtos():
 
     cursor = banco.cursor()
     cursor.execute("SELECT * FROM produtos")
-    dados_lidos=cursor.fetchall()
+    dados_lidos = cursor.fetchall()
     
     lista_produtos.tableWidget.setRowCount(len(dados_lidos))
     lista_produtos.tableWidget.setColumnCount(5)
 
     for i in range(0, len(dados_lidos)):
-        for j in range(0,5):
-            lista_produtos.tableWidget.setItem(i,j,QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+        for j in range(0, 5):
+            if j == 3:  # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
+                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
+            else:
+                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+
 
 def gerar_pdf():
     cursor = banco.cursor()
     cursor.execute("SELECT * FROM produtos")
-    dados_lidos=cursor.fetchall()
-    y=0
-    pdf = canvas.Canvas("Cadastro_Produtos.pdf")
+    dados_lidos = cursor.fetchall()
+    y = 0
+    pdf = canvas.Canvas("Cadastro_Produtos.pdf", pagesize=landscape((612, 792)))  # Define o formato paisagem
+    pdf.setPageSize(landscape((612, 792)))
     pdf.setFont("Times-Bold", 25)
-    pdf.drawString(200,800, "Produtos Cadastrados:")
+    pdf.drawString(250, 550, "Produtos Cadastrados:")
     pdf.setFont("Times-Bold", 18)
 
-    pdf.drawString(10,750, "ID")
-    pdf.drawString(110,750, "CÓDIGO")
-    pdf.drawString(210,750, "PRODUTO")
-    pdf.drawString(310,750, "PREÇO")
-    pdf.drawString(410,750, "CATEGORIA")
+    pdf.drawString(30, 500, "ID")
+    pdf.drawString(100, 500, "CÓDIGO")
+    max_product_len = max([len(str(prod[2])) for prod in dados_lidos])
+    pdf.drawString(200, 500, "PRODUTO")
+    pdf.drawString(200 + max_product_len * 7 + 40, 500, "PREÇO")  # Aumenta o espaçamento em 20 pixels
+    pdf.drawString(300 + max_product_len * 7 + 20, 500, "CATEGORIA")
 
     for i in range(0, len(dados_lidos)):
-        y = y +50
-        pdf.drawString(10,750 - y, str(dados_lidos[i][0]))
-        pdf.drawString(110,750 - y, str(dados_lidos[i][1]))
-        pdf.drawString(210,750 - y, str(dados_lidos[i][2]))
-        pdf.drawString(310,750 - y, str(dados_lidos[i][3]))
-        pdf.drawString(410,750 - y, str(dados_lidos[i][4]))
+        y = y + 30
+        pdf.drawString(30, 500 - y, str(dados_lidos[i][0]))
+        pdf.drawString(100, 500 - y, str(dados_lidos[i][1]))
+        pdf.drawString(200, 500 - y, str(dados_lidos[i][2]))
+        pdf.drawString(200 + max_product_len * 7 + 30, 500 - y, "R$ {:.2f}".format(dados_lidos[i][3]))  # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
+        pdf.drawString(300 + max_product_len * 7 + 20, 500 - y, str(dados_lidos[i][4]))
+
+
 
     pdf.save()
-    print("PDF Gerado com sucesso!")
+    msg = QtWidgets.QMessageBox()
+    msg.setIcon(QtWidgets.QMessageBox.Information)
+    msg.setText("PDF Gerado com sucesso!")
+    msg.setWindowTitle("PDF Gerado")
+    msg.exec_()
 
 
 
