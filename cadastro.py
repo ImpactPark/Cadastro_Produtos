@@ -4,6 +4,7 @@ import re
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import landscape
 
+
 def chama_menu_principal():
     tela_login.label_5.setText("")
     nome_usuario = tela_login.lineEdit.text()
@@ -13,7 +14,7 @@ def chama_menu_principal():
     try:
         cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(
             nome_usuario))
-        senha_bd = cursor.fetchall() 
+        senha_bd = cursor.fetchall()
         if senha == senha_bd[0][0]:
             tela_login.close()
             menu_principal.show()
@@ -30,17 +31,21 @@ def sair():
     menu_principal.close()
     tela_login.show()
 
+
 def voltar():
     lista_produtos.close()
     menu_principal.show()
+
 
 def abre_tela_cadastro():
     tela_login.close()
     tela_cadastro_usuario.show()
 
+
 def fecha_tela_cadastro():
     tela_cadastro_usuario.close()
     tela_login.show()
+
 
 def cadastrar_usuario():
     nome = tela_cadastro_usuario.lineEdit.text()
@@ -58,9 +63,11 @@ def cadastrar_usuario():
 
     with sqlite3.connect('banco_cadastro.db') as banco:
         cursor = banco.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS cadastro_usuario(nome text, login text, senha text)")
-        
-        cursor.execute("SELECT * FROM cadastro_usuario WHERE login = ?", (login,))
+        cursor.execute(
+            "CREATE TABLE IF NOT EXISTS cadastro_usuario(nome text, login text, senha text)")
+
+        cursor.execute(
+            "SELECT * FROM cadastro_usuario WHERE login = ?", (login,))
         existing_user = cursor.fetchone()
 
         if existing_user:
@@ -72,7 +79,8 @@ def cadastrar_usuario():
             return
 
         try:
-            cursor.execute("INSERT INTO cadastro_usuario (nome, login, senha) VALUES (?, ?, ?)", (nome, login, senha))
+            cursor.execute(
+                "INSERT INTO cadastro_usuario (nome, login, senha) VALUES (?, ?, ?)", (nome, login, senha))
             banco.commit()
             tela_cadastro_usuario.lineEdit.setText("")
             tela_cadastro_usuario.lineEdit_2.setText("")
@@ -89,8 +97,6 @@ def cadastrar_usuario():
             tela_cadastro_usuario.label_2.setText("Erro ao cadastrar usuário")
 
 
-
-
 def funcao_principal():
     linha1 = menu_principal.lineEdit.text()
     linha2 = menu_principal.lineEdit_2.text()
@@ -103,7 +109,7 @@ def funcao_principal():
         msg.setWindowTitle("Erro no cadastro")
         msg.exec_()
         return
-    
+
     cursor.execute("SELECT * FROM produtos WHERE codigo = ?", (linha1,))
     resultado = cursor.fetchone()
 
@@ -149,6 +155,7 @@ def funcao_principal():
         msg.exec_()
         print("Erro ao cadastrar produto: ", erro)
 
+
 def chama_lista_produtos():
     menu_principal.close()
     lista_produtos.show()
@@ -156,16 +163,19 @@ def chama_lista_produtos():
     cursor = banco.cursor()
     cursor.execute("SELECT * FROM produtos")
     dados_lidos = cursor.fetchall()
-    
+
     lista_produtos.tableWidget.setRowCount(len(dados_lidos))
     lista_produtos.tableWidget.setColumnCount(5)
 
     for i in range(0, len(dados_lidos)):
         for j in range(0, 5):
             if j == 3:  # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
-                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
+                lista_produtos.tableWidget.setItem(
+                    i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
             else:
-                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+                lista_produtos.tableWidget.setItem(
+                    i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+
 
 def excluir_dados():
     linha = lista_produtos.tableWidget.currentRow()
@@ -183,7 +193,8 @@ def gerar_pdf():
     cursor.execute("SELECT * FROM produtos")
     dados_lidos = cursor.fetchall()
     y = 0
-    pdf = canvas.Canvas("Cadastro_Produtos.pdf", pagesize=landscape((612, 792)))  # Define o formato paisagem
+    pdf = canvas.Canvas("Cadastro_Produtos.pdf", pagesize=landscape(
+        (612, 792)))  # Define o formato paisagem
     pdf.setPageSize(landscape((612, 792)))
     pdf.setFont("Times-Bold", 25)
     pdf.drawString(250, 550, "Produtos Cadastrados:")
@@ -193,7 +204,8 @@ def gerar_pdf():
     pdf.drawString(100, 500, "CÓDIGO")
     max_product_len = max([len(str(prod[2])) for prod in dados_lidos])
     pdf.drawString(200, 500, "PRODUTO")
-    pdf.drawString(200 + max_product_len * 7 + 40, 500, "PREÇO")  # Aumenta o espaçamento em 20 pixels
+    # Aumenta o espaçamento em 20 pixels
+    pdf.drawString(200 + max_product_len * 7 + 40, 500, "PREÇO")
     pdf.drawString(300 + max_product_len * 7 + 20, 500, "CATEGORIA")
 
     for i in range(0, len(dados_lidos)):
@@ -201,10 +213,11 @@ def gerar_pdf():
         pdf.drawString(30, 500 - y, str(dados_lidos[i][0]))
         pdf.drawString(100, 500 - y, str(dados_lidos[i][1]))
         pdf.drawString(200, 500 - y, str(dados_lidos[i][2]))
-        pdf.drawString(200 + max_product_len * 7 + 30, 500 - y, "R$ {:.2f}".format(dados_lidos[i][3]))  # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
-        pdf.drawString(300 + max_product_len * 7 + 20, 500 - y, str(dados_lidos[i][4]))
-
-
+        # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
+        pdf.drawString(200 + max_product_len * 7 + 30, 500 - y,
+                       "R$ {:.2f}".format(dados_lidos[i][3]))
+        pdf.drawString(300 + max_product_len * 7 + 20,
+                       500 - y, str(dados_lidos[i][4]))
 
     pdf.save()
     msg = QtWidgets.QMessageBox()
@@ -212,7 +225,6 @@ def gerar_pdf():
     msg.setText("PDF Gerado com sucesso!")
     msg.setWindowTitle("PDF Gerado")
     msg.exec_()
-
 
 
 app = QtWidgets.QApplication([])
