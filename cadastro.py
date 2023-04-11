@@ -47,6 +47,10 @@ def fecha_tela_cadastro():
     tela_login.show()
 
 
+def editar_dados():
+    lista_produtos.close()
+    tela_editar.show()
+
 def cadastrar_usuario():
     nome = tela_cadastro_usuario.lineEdit.text()
     login = tela_cadastro_usuario.lineEdit_2.text()
@@ -155,7 +159,6 @@ def funcao_principal():
         msg.exec_()
         print("Erro ao cadastrar produto: ", erro)
 
-
 def chama_lista_produtos():
     menu_principal.close()
     lista_produtos.show()
@@ -232,9 +235,11 @@ tela_login = uic.loadUi("tela_login.ui")
 menu_principal = uic.loadUi("menu_principal.ui")
 tela_cadastro_usuario = uic.loadUi("tela_cadastro_usuario.ui")
 lista_produtos = uic.loadUi("lista_produtos.ui")
+tela_editar = uic.loadUi("tela_edicao.ui")
 lista_produtos.pushButton_2.clicked.connect(gerar_pdf)
 lista_produtos.pushButton_3.clicked.connect(voltar)
 lista_produtos.pushButton_4.clicked.connect(excluir_dados)
+lista_produtos.pushButton_5.clicked.connect(editar_dados)
 tela_login.pushButton_3.clicked.connect(abre_tela_cadastro)
 tela_login.pushButton_2.clicked.connect(chama_menu_principal)
 tela_login.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
