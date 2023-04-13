@@ -47,9 +47,7 @@ def fecha_tela_cadastro():
     tela_login.show()
 
 
-def editar_dados():
-    lista_produtos.close()
-    tela_editar.show()
+
 
 def cadastrar_usuario():
     nome = tela_cadastro_usuario.lineEdit.text()
@@ -179,6 +177,24 @@ def chama_lista_produtos():
                 lista_produtos.tableWidget.setItem(
                     i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
+
+def editar_dados():
+    linha = lista_produtos.tableWidget.currentRow()
+    cursor = banco.cursor()
+    cursor.execute("SELECT id FROM produtos")
+    dados_lidos = cursor.fetchall()
+    valor_id = dados_lidos[linha][0]
+    cursor.execute("SELECT * FROM produtos WHERE id=" + str(valor_id))
+    produto = cursor.fetchall()
+    lista_produtos.close()
+    tela_editar.show()
+    tela_editar.lineEdit.setText(str(produto[0][0]))
+    tela_editar.lineEdit_2.setText(str(produto[0][1]))
+    tela_editar.lineEdit_3.setText(str(produto[0][2]))
+    tela_editar.lineEdit_4.setText(str(produto[0][3]))
+    tela_editar.lineEdit_5.setText(str(produto[0][4]))
+    
+    #banco.commit()
 
 def excluir_dados():
     linha = lista_produtos.tableWidget.currentRow()
