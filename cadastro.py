@@ -4,6 +4,7 @@ import re
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import landscape
 
+numero_id = 0
 
 def chama_menu_principal():
     tela_login.label_5.setText("")
@@ -179,6 +180,7 @@ def chama_lista_produtos():
 
 
 def editar_dados():
+    global numero_id
     linha = lista_produtos.tableWidget.currentRow()
     cursor = banco.cursor()
     cursor.execute("SELECT id FROM produtos")
@@ -188,11 +190,18 @@ def editar_dados():
     produto = cursor.fetchall()
     lista_produtos.close()
     tela_editar.show()
+    numero_id = valor_id
     tela_editar.lineEdit.setText(str(produto[0][0]))
     tela_editar.lineEdit_2.setText(str(produto[0][1]))
     tela_editar.lineEdit_3.setText(str(produto[0][2]))
     tela_editar.lineEdit_4.setText(str(produto[0][3]))
     tela_editar.lineEdit_5.setText(str(produto[0][4]))
+
+def salvar_dados_editados():
+    # Pega o numero do ID
+    global numero_id
+    print(numero_id)
+
     
     #banco.commit()
 
@@ -263,7 +272,7 @@ menu_principal.pushButton_2.clicked.connect(chama_lista_produtos)
 menu_principal.pushButton_3.clicked.connect(sair)
 tela_cadastro_usuario.pushButton_2.clicked.connect(cadastrar_usuario)
 tela_cadastro_usuario.pushButton_3.clicked.connect(fecha_tela_cadastro)
-
+tela_editar.pushButton_2.clicked.connect(salvar_dados_editados)
 
 banco = sqlite3.connect('banco_cadastro.db')
 cursor = banco.cursor()
