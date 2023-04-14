@@ -200,10 +200,21 @@ def editar_dados():
 def salvar_dados_editados():
     # Pega o numero do ID
     global numero_id
-    print(numero_id)
-
+    # Valor digotado no lineEdit
+    codigo = tela_editar.lineEdit_2.text()
+    descricao = tela_editar.lineEdit_3.text()
+    preco = tela_editar.lineEdit_4.text()
+    categoria = tela_editar.lineEdit_5.text()
     
-    #banco.commit()
+    # Atualizar os dados editados no banco
+    cursor = banco.cursor()
+    cursor.execute("UPDATE produtos SET codigo = '{}', descricao = '{}', preco = '{}', categoria = '{}' WHERE id = '{}'".format(codigo, descricao, preco, categoria, numero_id))
+
+    # Atualizar as janelas
+    tela_editar.close()
+    lista_produtos.close()
+    chama_lista_produtos()
+    banco.commit()
 
 def excluir_dados():
     linha = lista_produtos.tableWidget.currentRow()
