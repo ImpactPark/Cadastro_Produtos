@@ -3,7 +3,7 @@ import sqlite3 # Importa sqlite3, biblioteca para trabalhar com o SQLite
 import re # Importa re, biblioteca para trabalhar com expressões regulares
 from reportlab.pdfgen import canvas # Importa canvas do reportlab.pdfgen, biblioteca para criar documentos em PDF
 from reportlab.lib.pagesizes import landscape # Importa landscape de reportlab.lib.pagesizes, para definir o formato de página paisagem em PDF
-
+from reportlab.lib import colors
 
 numero_id = 0
 
@@ -56,14 +56,20 @@ def fecha_tela_cadastro():
 
 
 
+# Função criada para cadastrar_usuario
 def cadastrar_usuario():
+    # Obtém o nome digitado no campo lineEdit
     nome = tela_cadastro_usuario.lineEdit.text()
+    # Obtém o login digitado no campo lineEdit_2
     login = tela_cadastro_usuario.lineEdit_2.text()
+    # Obtém a senha digitada no campo lineEdit_3
     senha = tela_cadastro_usuario.lineEdit_3.text()
+    # Obtém a confirmação da senha digitada no campo lineEdit_4
     confirma_senha = tela_cadastro_usuario.lineEdit_4.text()
 
-    # Adicionado a verificação se os campos estão preenchidos
+    # Verifica se os campos nome, login e senha estão preenchidos
     if not nome or not login or not senha:
+        # Exibe uma mensagem de erro caso os campos não estejam preenchidos corretamente
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Critical)
         msg.setText("Preencha os campos corretamente")
@@ -71,7 +77,9 @@ def cadastrar_usuario():
         msg.exec_()
         return
 
+    # Verifica se a senha e a confirmação da senha são iguais
     if senha != confirma_senha:
+        # Exibe uma mensagem de erro caso as senhas não coincidam
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Critical)
         msg.setText("As senhas não coincidem")
@@ -79,15 +87,20 @@ def cadastrar_usuario():
         msg.exec_()
         return
 
+    # Conecta-se ao banco de dados banco_cadastro.db
     with sqlite3.connect('banco_cadastro.db') as banco:
+        # Cria um cursor para executar comandos SQL
         cursor = banco.cursor()
+        # Cria a tabela cadastro_usuario caso ela não exista
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS cadastro_usuario(nome text, login text, senha text)")
 
+        # Verifica se já existe um usuário com o mesmo login
         cursor.execute(
             "SELECT * FROM cadastro_usuario WHERE login = ?", (login,))
         existing_user = cursor.fetchone()
 
+        # Caso o usuário já exista, exibe uma mensagem de erro
         if existing_user:
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -96,23 +109,30 @@ def cadastrar_usuario():
             msg.exec_()
             return
 
+        # Insere o novo usuário na tabela cadastro_usuario
         try:
             cursor.execute(
                 "INSERT INTO cadastro_usuario (nome, login, senha) VALUES (?, ?, ?)", (nome, login, senha))
+            # Confirma as alterações no banco de dados
             banco.commit()
+            # Limpa os campos do formulário após serem enviados
             tela_cadastro_usuario.lineEdit.setText("")
             tela_cadastro_usuario.lineEdit_2.setText("")
             tela_cadastro_usuario.lineEdit_3.setText("")
             tela_cadastro_usuario.lineEdit_4.setText("")
-            # Mostra pop-up de sucesso
+            # Exibe uma mensagem de sucesso em caso de sucesso no cadastro
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Information)
             msg.setText("Usuário cadastrado com sucesso!")
             msg.setWindowTitle("Cadastro realizado")
             msg.exec_()
+        # Caso ocorra um erro ao cadastrar o usuário no banco 
         except sqlite3.Error as erro:
+            # Imprime o erro no console
             print("Erro ao cadastrar usuário: ", erro)
+            # Exibe uma mensagem de erro no label_2
             tela_cadastro_usuario.label_2.setText("Erro ao cadastrar usuário")
+
 
 
 def funcao_principal():
@@ -120,13 +140,16 @@ def funcao_principal():
     linha2 = menu_principal.lineEdit_2.text()
     linha3 = menu_principal.lineEdit_3.text()
 
-    if not (re.fullmatch(r'\d+', linha1) and re.fullmatch(r'[A-Za-z0-9\s]+', linha2) and re.fullmatch(r'\d+(\.\d{1,2})?', linha3)):
+    if not (re.fullmatch(r'\d+', linha1) and re.fullmatch(r'[A-Za-z0-9\s]+', linha2) and re.fullmatch(r'\d{1,3}(\.\d{3})*(,\d{2})?', linha3)):
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Critical)
         msg.setText("Dados incorretos para cadastro")
         msg.setWindowTitle("Erro no cadastro")
         msg.exec_()
         return
+
+    linha3 = linha3.replace(".", "").replace(",", ".")  # Convertendo o formato de preço para número decimal
+    preco = float(linha3)
 
     cursor.execute("SELECT * FROM produtos WHERE codigo = ?", (linha1,))
     resultado = cursor.fetchone()
@@ -155,7 +178,7 @@ def funcao_principal():
 
     try:
         cursor.execute("INSERT INTO produtos (codigo, descricao, preco, categoria) VALUES (?,?,?,?)",
-                       (linha1, linha2, linha3, categoria))
+                       (linha1, linha2, preco, categoria))
         banco.commit()
         menu_principal.lineEdit.setText("")
         menu_principal.lineEdit_2.setText("")
@@ -173,6 +196,7 @@ def funcao_principal():
         msg.exec_()
         print("Erro ao cadastrar produto: ", erro)
 
+
 def chama_lista_produtos():
     menu_principal.close()
     lista_produtos.show()
@@ -184,14 +208,13 @@ def chama_lista_produtos():
     lista_produtos.tableWidget.setRowCount(len(dados_lidos))
     lista_produtos.tableWidget.setColumnCount(5)
 
+
     for i in range(0, len(dados_lidos)):
         for j in range(0, 5):
             if j == 3:  # Formata a coluna PREÇO com duas casas decimais e inclui o símbolo "R$"
-                lista_produtos.tableWidget.setItem(
-                    i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
+                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
             else:
-                lista_produtos.tableWidget.setItem(
-                    i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
+                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
 
 def editar_dados():
@@ -242,6 +265,8 @@ def excluir_dados():
     banco.commit()
 
 
+from reportlab.lib import colors
+
 def gerar_pdf():
     cursor = banco.cursor()
     cursor.execute("SELECT * FROM produtos")
@@ -250,9 +275,10 @@ def gerar_pdf():
     pdf = canvas.Canvas("Cadastro_Produtos.pdf", pagesize=landscape(
         (612, 792)))  # Define o formato paisagem
     pdf.setPageSize(landscape((612, 792)))
-    pdf.setFont("Times-Bold", 25)
+    pdf.setFont("Helvetica-Bold", 25)
+    pdf.setFillColor(colors.HexColor("#2c2c54"))
     pdf.drawString(250, 550, "Produtos Cadastrados:")
-    pdf.setFont("Times-Bold", 18)
+    pdf.setFont("Helvetica-Bold", 18)
 
     pdf.drawString(30, 500, "ID")
     pdf.drawString(100, 500, "CÓDIGO")
@@ -261,6 +287,9 @@ def gerar_pdf():
     # Aumenta o espaçamento em 20 pixels
     pdf.drawString(200 + max_product_len * 7 + 40, 500, "PREÇO")
     pdf.drawString(300 + max_product_len * 7 + 20, 500, "CATEGORIA")
+
+    pdf.setFont("Helvetica", 14)
+    pdf.setFillColor(colors.HexColor("#40407a"))
 
     for i in range(0, len(dados_lidos)):
         y = y + 30
@@ -279,6 +308,7 @@ def gerar_pdf():
     msg.setText("PDF Gerado com sucesso!")
     msg.setWindowTitle("PDF Gerado")
     msg.exec_()
+
 
 
 app = QtWidgets.QApplication([])
