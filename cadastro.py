@@ -1,31 +1,36 @@
-from PyQt5 import uic, QtWidgets
-import sqlite3
-import re
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import landscape
+from PyQt5 import uic, QtWidgets # Importa uic e QtWidgets do PyQt5, uma biblioteca para criar interfaces gráficas de usuário (GUI) em Python
+import sqlite3 # Importa sqlite3, biblioteca para trabalhar com o SQLite
+import re # Importa re, biblioteca para trabalhar com expressões regulares
+from reportlab.pdfgen import canvas # Importa canvas do reportlab.pdfgen, biblioteca para criar documentos em PDF
+from reportlab.lib.pagesizes import landscape # Importa landscape de reportlab.lib.pagesizes, para definir o formato de página paisagem em PDF
+
 
 numero_id = 0
 
 def chama_menu_principal():
-    tela_login.label_5.setText("")
-    nome_usuario = tela_login.lineEdit.text()
-    senha = tela_login.lineEdit_2.text()
-    banco = sqlite3.connect('banco_cadastro.db')
-    cursor = banco.cursor()
+    tela_login.label_5.setText("")  # Limpa qualquer mensagem de erro na tela de login
+    nome_usuario = tela_login.lineEdit.text()  # Obtém o nome de usuário digitado na tela de login
+    senha = tela_login.lineEdit_2.text()  # Obtém a senha digitada na tela de login
+    banco = sqlite3.connect('banco_cadastro.db')  # Conecta-se ao banco de dados SQLite 'banco_cadastro.db'
+    cursor = banco.cursor()  # Cria um objeto cursor para executar consultas SQL no banco de dados
+
     try:
-        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(
-            nome_usuario))
-        senha_bd = cursor.fetchall()
+        # Consulta a senha do usuário com o nome de usuário fornecido no banco de dados
+        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario))
+        senha_bd = cursor.fetchall()  # Armazena o resultado da consulta em senha_bd
+
+        # Verifica se a senha digitada corresponde à senha armazenada no banco de dados
         if senha == senha_bd[0][0]:
-            tela_login.close()
-            menu_principal.show()
-            tela_login.lineEdit.setText("")
-            tela_login.lineEdit_2.setText("")
+            tela_login.close()  # Fecha a tela de login
+            menu_principal.show()  # Mostra a tela do menu principal
+            tela_login.lineEdit.setText("")  # Limpa o campo de nome de usuário na tela de login
+            tela_login.lineEdit_2.setText("")  # Limpa o campo de senha na tela de login
         else:
-            tela_login.label_5.setText("Dados de login incorretos!")
-        banco.close()
+            tela_login.label_5.setText("Dados de login incorretos!")  # Mostra uma mensagem de erro se a senha estiver incorreta
+        banco.close()  # Fecha a conexão com o banco de dados
     except:
-        tela_login.label_5.setText("Erro ao validar o login")
+        tela_login.label_5.setText("Erro ao validar o login")  # Mostra uma mensagem de erro se houver um problema ao validar o login
+
 
 
 def sair():

@@ -57,7 +57,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;
      <bool>false</bool>
     </property>
     <property name="placeholderText">
-     <string>Digite seu nome</string>
+     <string>Digite seu login</string>
     </property>
     <property name="clearButtonEnabled">
      <bool>true</bool>
