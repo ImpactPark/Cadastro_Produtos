@@ -1,9 +1,21 @@
-from PyQt5 import uic, QtWidgets # Importa uic e QtWidgets do PyQt5, uma biblioteca para criar interfaces gráficas de usuário (GUI) em Python
-import sqlite3 # Importa sqlite3, biblioteca para trabalhar com o SQLite
-import re # Importa re, biblioteca para trabalhar com expressões regulares
-from reportlab.pdfgen import canvas # Importa canvas do reportlab.pdfgen, biblioteca para criar documentos em PDF
-from reportlab.lib.pagesizes import landscape # Importa landscape de reportlab.lib.pagesizes, para definir o formato de página paisagem em PDF
-from reportlab.lib import colors # Importa o módulo colors da biblioteca ReportLab
+""" 
+**Requisitos para funcionalidade do programa**
+Instalar o Python 3.9.5 (https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe)
+Instalar a biblioteca PyQt5: pip install PyQt5
+Instalar a biblioteca ReportLab é usada para criar documentos em PDF: pip install reportlab 
+via CMD navegar até a pasta do executável cadastro.py e executar o comando: python cadastro.py
+"""
+
+
+# Importa uic e QtWidgets do PyQt5, uma biblioteca para criar interfaces gráficas de usuário (GUI) em Python
+from PyQt5 import uic, QtWidgets
+import sqlite3  # Importa sqlite3, biblioteca para trabalhar com o SQLite
+import re  # Importa re, biblioteca para trabalhar com expressões regulares
+# Importa canvas do reportlab.pdfgen, biblioteca para criar documentos em PDF
+from reportlab.pdfgen import canvas
+# Importa landscape de reportlab.lib.pagesizes, para definir o formato de página paisagem em PDF
+from reportlab.lib.pagesizes import landscape
+from reportlab.lib import colors  # Importa o módulo colors da biblioteca ReportLab
 
 
 numero_id = 0
@@ -14,6 +26,8 @@ Ela verifica se o nome de usuário e a senha inseridos correspondem aos armazena
 de dados. Se as credenciais estiverem corretas, a tela de login é fechada e a tela do menu 
 principal é mostrada. Se as credenciais estiverem incorretas ou houver algum problema ao 
 validar o login, uma mensagem de erro é exibida. """
+
+
 def chama_menu_principal():
     # Limpa qualquer mensagem de erro na tela de login
     tela_login.label_5.setText("")
@@ -32,7 +46,8 @@ def chama_menu_principal():
 
     try:
         # Consulta a senha do usuário com o nome de usuário fornecido no banco de dados
-        cursor.execute("SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario))
+        cursor.execute(
+            "SELECT senha FROM cadastro_usuario WHERE login ='{}'".format(nome_usuario))
 
         # Armazena o resultado da consulta em senha_bd
         senha_bd = cursor.fetchall()
@@ -61,29 +76,31 @@ def chama_menu_principal():
         tela_login.label_5.setText("Erro ao validar o login")
 
 
-
 # Função para fechar a tela do menu principal e recarregar a tela de login
 def sair():
-    menu_principal.close()  
-    tela_login.show()  
+    menu_principal.close()
+    tela_login.show()
 
 # Função para fechar a lista de produtos e recarregar o menu principal
+
+
 def voltar():
-    lista_produtos.close()  
-    menu_principal.show() 
+    lista_produtos.close()
+    menu_principal.show()
 
 # Função para fechar a tela de login e carregar a tela de cadastro de usuário
+
+
 def abre_tela_cadastro():
-    tela_login.close()  
-    tela_cadastro_usuario.show() 
+    tela_login.close()
+    tela_cadastro_usuario.show()
 
 # Função para fechar a tela de cadastro de usuário e carregar a tela de login
+
+
 def fecha_tela_cadastro():
-    tela_cadastro_usuario.close() 
-    tela_login.show()  
-
-
-
+    tela_cadastro_usuario.close()
+    tela_login.show()
 
 
 # Função criada para cadastrar_usuario
@@ -93,6 +110,8 @@ estão preenchidos corretamente, se a senha e a confirmação da senha coincidem
 já existe no banco de dados. Se todas as verificações forem bem-sucedidas, o novo usuário será inserido 
 no banco de dados e uma mensagem de sucesso será exibida. Se alguma das verificações falhar, 
 uma mensagem de erro apropriada será exibida. """
+
+
 def cadastrar_usuario():
     # Obtém o nome digitado no campo lineEdit
     nome = tela_cadastro_usuario.lineEdit.text()
@@ -162,7 +181,7 @@ def cadastrar_usuario():
             msg.setText("Usuário cadastrado com sucesso!")
             msg.setWindowTitle("Cadastro realizado")
             msg.exec_()
-        # Caso ocorra um erro ao cadastrar o usuário no banco 
+        # Caso ocorra um erro ao cadastrar o usuário no banco
         except sqlite3.Error as erro:
             # Imprime o erro no console
             print("Erro ao cadastrar usuário: ", erro)
@@ -170,12 +189,13 @@ def cadastrar_usuario():
             tela_cadastro_usuario.label_2.setText("Erro ao cadastrar usuário")
 
 
-
 # Função principal do programa
 """ Este trecho de código é responsável por cadastrar um produto em um banco de dados com base nas 
 informações inseridas pelo usuário no menu principal. Ele verifica se os dados inseridos 
 estão no formato correto, se o código do produto já existe e qual categoria foi selecionada 
 antes de inserir o produto no banco de dados. Se tudo estiver correto, ele limpa os campos. """
+
+
 def funcao_principal():
     # Obtém o texto das três primeiras linhas editáveis do menu principal
     linha1 = menu_principal.lineEdit.text()
@@ -217,7 +237,7 @@ def funcao_principal():
     elif menu_principal.radioButton_3.isChecked():
         categoria = "Eletrônicos"
     else:
-        # Se nenhuma categoria for selecionada, exibe uma mensagem de erro 
+        # Se nenhuma categoria for selecionada, exibe uma mensagem de erro
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Critical)
         msg.setText("Selecione a categoria")
@@ -227,7 +247,8 @@ def funcao_principal():
 
     # Insere um produto novo no banco de dados
     try:
-        cursor.execute("INSERT INTO produtos (codigo, descricao, preco, categoria) VALUES (?,?,?,?)",(linha1, linha2, preco, categoria))
+        cursor.execute("INSERT INTO produtos (codigo, descricao, preco, categoria) VALUES (?,?,?,?)",
+                       (linha1, linha2, preco, categoria))
         banco.commit()
         # Limpa os campos de entrada após os dados serem enviados ao banco
         menu_principal.lineEdit.setText("")
@@ -249,12 +270,13 @@ def funcao_principal():
         print("Erro ao cadastrar produto: ", erro)
 
 
-
 # Função criada para chamar a lista de produtos
 """ Este trecho de código define a função chama_lista_produtos, que é responsável por exibir uma lista de 
 produtos em uma tabela. A função fecha o menu principal, exibe a lista de produtos, consulta o 
 banco de dados para obter todos os registros da tabela de produtos e, em seguida, preenche a tabela 
 com os dados retornados. A coluna "PREÇO" é formatada com duas casas decimais e inclui o símbolo "R$". """
+
+
 def chama_lista_produtos():
     # Fecha o menu principal e carrega a lista de produtos
     menu_principal.close()
@@ -276,11 +298,12 @@ def chama_lista_produtos():
         for j in range(0, 5):
             # Se a coluna atual for a coluna "PREÇO", formata o valor com duas casas decimais e inclui o símbolo "R$"
             if j == 3:
-                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
+                lista_produtos.tableWidget.setItem(
+                    i, j, QtWidgets.QTableWidgetItem("R$ {:.2f}".format(dados_lidos[i][j])))
             else:
                 # Para outras colunas, simplesmente insere o valor na célula correspondente
-                lista_produtos.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
-
+                lista_produtos.tableWidget.setItem(
+                    i, j, QtWidgets.QTableWidgetItem(str(dados_lidos[i][j])))
 
 
 # Função criada para edição dos dados da lista
@@ -289,6 +312,8 @@ os dados de um produto selecionado na tabela de produtos. A função obtém a li
 recupera o ID do produto correspondente e consulta o banco de dados para obter os detalhes do 
 produto. Em seguida, fecha a tela de lista de produtos, exibe a tela de edição e preenche os 
 campos da tela de edição com os dados do produto selecionado. """
+
+
 def editar_dados():
     # Define a variável global numero_id
     global numero_id
@@ -332,6 +357,8 @@ digitados nos campos da tela de edição, atualiza o registro do produto no banc
 os novos valores e fecha as janelas de edição e lista de produtos. Em seguida, a função chama 
 chama_lista_produtos() para atualizar a lista de produtos e exibi-la novamente, e salva as 
 alterações no banco de dados usando banco.commit(). """
+
+
 def salvar_dados_editados():
     # Acessa a variável global numero_id
     global numero_id
@@ -346,7 +373,8 @@ def salvar_dados_editados():
     cursor = banco.cursor()
 
     # Atualiza o registro do produto no banco de dados com os valores editados
-    cursor.execute("UPDATE produtos SET codigo = '{}', descricao = '{}', preco = '{}', categoria = '{}' WHERE id = '{}'".format(codigo, descricao, preco, categoria, numero_id))
+    cursor.execute("UPDATE produtos SET codigo = '{}', descricao = '{}', preco = '{}', categoria = '{}' WHERE id = '{}'".format(
+        codigo, descricao, preco, categoria, numero_id))
 
     # Fecha a tela de edição e a lista de produtos
     tela_editar.close()
@@ -364,6 +392,8 @@ def salvar_dados_editados():
 na tabela de produtos. A função obtém a linha selecionada, remove-a da tabela e recupera o ID do 
 produto correspondente. Em seguida, a função exclui o registro do produto no banco de dados com 
 o ID obtido e salva as alterações usando banco.commit(). """
+
+
 def excluir_dados():
     # Obtém a linha selecionada na tabela de produtos
     linha = lista_produtos.tableWidget.currentRow()
@@ -388,14 +418,13 @@ def excluir_dados():
     banco.commit()
 
 
-
-
-
 # Função criada para gerar o PDF
 """ Este trecho de código define a função gerar_pdf, que é responsável por criar um arquivo PDF com a lista de 
 produtos cadastrados. A função consulta o banco de dados para obter todos os produtos, cria um objeto 
 de PDF, define o estilo de fonte e cor para o cabeçalho e os títulos das colunas, e desenha os dados 
 dos produtos no PDF. Ao final, a função salva o PDF e exibe uma mensagem de sucesso. """
+
+
 def gerar_pdf():
     # Cria um cursor para interagir com o banco de dados
     cursor = banco.cursor()
@@ -408,7 +437,8 @@ def gerar_pdf():
     y = 0
 
     # Cria um objeto de PDF com tamanho de página paisagem e nome de arquivo "Cadastro_Produtos.pdf"
-    pdf = canvas.Canvas("Cadastro_Produtos.pdf", pagesize=landscape((612, 792)))
+    pdf = canvas.Canvas("Cadastro_Produtos.pdf",
+                        pagesize=landscape((612, 792)))
     pdf.setPageSize(landscape((612, 792)))
 
     # Define o estilo de fonte e cor para o cabeçalho
@@ -439,8 +469,10 @@ def gerar_pdf():
         pdf.drawString(30, 500 - y, str(dados_lidos[i][0]))
         pdf.drawString(100, 500 - y, str(dados_lidos[i][1]))
         pdf.drawString(200, 500 - y, str(dados_lidos[i][2]))
-        pdf.drawString(200 + max_product_len * 7 + 30, 500 - y, "R$ {:.2f}".format(dados_lidos[i][3]))
-        pdf.drawString(300 + max_product_len * 7 + 20, 500 - y, str(dados_lidos[i][4]))
+        pdf.drawString(200 + max_product_len * 7 + 30, 500 - y,
+                       "R$ {:.2f}".format(dados_lidos[i][3]))
+        pdf.drawString(300 + max_product_len * 7 + 20,
+                       500 - y, str(dados_lidos[i][4]))
 
     # Salva o PDF
     pdf.save()
@@ -451,7 +483,6 @@ def gerar_pdf():
     msg.setText("PDF Gerado com sucesso!")
     msg.setWindowTitle("PDF Gerado")
     msg.exec_()
-
 
 
 """ Este código define a inicialização e a configuração do aplicativo Qt. Ele carrega as interfaces 
@@ -511,4 +542,3 @@ app.exec()
 
 # Fecha a conexão com o banco de dados
 banco.close()
-
