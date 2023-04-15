@@ -9,13 +9,16 @@ via CMD navegar até a pasta do executável cadastro.py e executar o comando: py
 
 # Importa uic e QtWidgets do PyQt5, uma biblioteca para criar interfaces gráficas de usuário (GUI) em Python
 from PyQt5 import uic, QtWidgets
-import sqlite3  # Importa sqlite3, biblioteca para trabalhar com o SQLite
-import re  # Importa re, biblioteca para trabalhar com expressões regulares
+# Importa sqlite3, biblioteca para trabalhar com o SQLite
+import sqlite3 
+# Importa re, biblioteca para trabalhar com expressões regulares
+import re  
 # Importa canvas do reportlab.pdfgen, biblioteca para criar documentos em PDF
 from reportlab.pdfgen import canvas
 # Importa landscape de reportlab.lib.pagesizes, para definir o formato de página paisagem em PDF
 from reportlab.lib.pagesizes import landscape
-from reportlab.lib import colors  # Importa o módulo colors da biblioteca ReportLab
+# Importa o módulo colors da biblioteca ReportLab
+from reportlab.lib import colors  
 
 
 numero_id = 0
@@ -26,8 +29,6 @@ Ela verifica se o nome de usuário e a senha inseridos correspondem aos armazena
 de dados. Se as credenciais estiverem corretas, a tela de login é fechada e a tela do menu 
 principal é mostrada. Se as credenciais estiverem incorretas ou houver algum problema ao 
 validar o login, uma mensagem de erro é exibida. """
-
-
 def chama_menu_principal():
     # Limpa qualquer mensagem de erro na tela de login
     tela_login.label_5.setText("")
@@ -110,8 +111,6 @@ estão preenchidos corretamente, se a senha e a confirmação da senha coincidem
 já existe no banco de dados. Se todas as verificações forem bem-sucedidas, o novo usuário será inserido 
 no banco de dados e uma mensagem de sucesso será exibida. Se alguma das verificações falhar, 
 uma mensagem de erro apropriada será exibida. """
-
-
 def cadastrar_usuario():
     # Obtém o nome digitado no campo lineEdit
     nome = tela_cadastro_usuario.lineEdit.text()
@@ -194,8 +193,6 @@ def cadastrar_usuario():
 informações inseridas pelo usuário no menu principal. Ele verifica se os dados inseridos 
 estão no formato correto, se o código do produto já existe e qual categoria foi selecionada 
 antes de inserir o produto no banco de dados. Se tudo estiver correto, ele limpa os campos. """
-
-
 def funcao_principal():
     # Obtém o texto das três primeiras linhas editáveis do menu principal
     linha1 = menu_principal.lineEdit.text()
@@ -275,8 +272,6 @@ def funcao_principal():
 produtos em uma tabela. A função fecha o menu principal, exibe a lista de produtos, consulta o 
 banco de dados para obter todos os registros da tabela de produtos e, em seguida, preenche a tabela 
 com os dados retornados. A coluna "PREÇO" é formatada com duas casas decimais e inclui o símbolo "R$". """
-
-
 def chama_lista_produtos():
     # Fecha o menu principal e carrega a lista de produtos
     menu_principal.close()
@@ -312,8 +307,6 @@ os dados de um produto selecionado na tabela de produtos. A função obtém a li
 recupera o ID do produto correspondente e consulta o banco de dados para obter os detalhes do 
 produto. Em seguida, fecha a tela de lista de produtos, exibe a tela de edição e preenche os 
 campos da tela de edição com os dados do produto selecionado. """
-
-
 def editar_dados():
     # Define a variável global numero_id
     global numero_id
@@ -357,8 +350,6 @@ digitados nos campos da tela de edição, atualiza o registro do produto no banc
 os novos valores e fecha as janelas de edição e lista de produtos. Em seguida, a função chama 
 chama_lista_produtos() para atualizar a lista de produtos e exibi-la novamente, e salva as 
 alterações no banco de dados usando banco.commit(). """
-
-
 def salvar_dados_editados():
     # Acessa a variável global numero_id
     global numero_id
@@ -392,8 +383,6 @@ def salvar_dados_editados():
 na tabela de produtos. A função obtém a linha selecionada, remove-a da tabela e recupera o ID do 
 produto correspondente. Em seguida, a função exclui o registro do produto no banco de dados com 
 o ID obtido e salva as alterações usando banco.commit(). """
-
-
 def excluir_dados():
     # Obtém a linha selecionada na tabela de produtos
     linha = lista_produtos.tableWidget.currentRow()
@@ -423,8 +412,6 @@ def excluir_dados():
 produtos cadastrados. A função consulta o banco de dados para obter todos os produtos, cria um objeto 
 de PDF, define o estilo de fonte e cor para o cabeçalho e os títulos das colunas, e desenha os dados 
 dos produtos no PDF. Ao final, a função salva o PDF e exibe uma mensagem de sucesso. """
-
-
 def gerar_pdf():
     # Cria um cursor para interagir com o banco de dados
     cursor = banco.cursor()
