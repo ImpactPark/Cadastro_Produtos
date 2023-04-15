@@ -32,25 +32,26 @@ def chama_menu_principal():
         tela_login.label_5.setText("Erro ao validar o login")  # Mostra uma mensagem de erro se houver um problema ao validar o login
 
 
-
+# Função para fechar a tela do menu principal e recarregar a tela de login
 def sair():
-    menu_principal.close()
-    tela_login.show()
+    menu_principal.close()  
+    tela_login.show()  
 
-
+# Função para fechar a lista de produtos e recarregar o menu principal
 def voltar():
-    lista_produtos.close()
-    menu_principal.show()
+    lista_produtos.close()  
+    menu_principal.show() 
 
-
+# Função para fechar a tela de login e carregar a tela de cadastro de usuário
 def abre_tela_cadastro():
-    tela_login.close()
-    tela_cadastro_usuario.show()
+    tela_login.close()  
+    tela_cadastro_usuario.show() 
 
-
+# Função para fechar a tela de cadastro de usuário e carregar a tela de login
 def fecha_tela_cadastro():
-    tela_cadastro_usuario.close()
-    tela_login.show()
+    tela_cadastro_usuario.close() 
+    tela_login.show()  
+
 
 
 
@@ -60,6 +61,15 @@ def cadastrar_usuario():
     login = tela_cadastro_usuario.lineEdit_2.text()
     senha = tela_cadastro_usuario.lineEdit_3.text()
     confirma_senha = tela_cadastro_usuario.lineEdit_4.text()
+
+    # Adicionado a verificação se os campos estão preenchidos
+    if not nome or not login or not senha:
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Critical)
+        msg.setText("Preencha os campos corretamente")
+        msg.setWindowTitle("Erro no cadastro")
+        msg.exec_()
+        return
 
     if senha != confirma_senha:
         msg = QtWidgets.QMessageBox()
